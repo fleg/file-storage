@@ -5,6 +5,8 @@ import (
 	"go.uber.org/fx/fxevent"
 
 	"file-storage/internal/logger"
+	"file-storage/internal/router"
+	"file-storage/internal/services"
 )
 
 func registerLogger(l *logger.Logger) fxevent.Logger {
@@ -20,6 +22,10 @@ func Run() {
 
 		fx.WithLogger(registerLogger),
 		ServerModule,
+
+		fx.Provide(fx.Annotate(services.NewHealthService, fx.ParamTags(`group:"readiness"`))),
+
+		fx.Invoke(router.Bind),
 	)
 
 	app := fx.New(appModule)

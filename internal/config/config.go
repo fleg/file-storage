@@ -16,8 +16,8 @@ type Config struct {
 		Level string `env:"LOG_LEVEL" envDefault:"debug" validate:"oneof=debug error info"`
 	}
 	Storage struct {
-		Path string `env:"STORAGE_PATH" envDefault:"/tmp"`
-		MaxFileSize uint `env:"STORAGE_MAX_FILE_SIZE" envDefault:"134217728"`
+		Path        string `env:"STORAGE_PATH" envDefault:"/tmp"`
+		MaxFileSize uint   `env:"STORAGE_MAX_FILE_SIZE" envDefault:"134217728"`
 	}
 }
 

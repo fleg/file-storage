@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/brpaz/echozap"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/brpaz/echozap"
 
 	"file-storage/internal/logger"
 )

@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"file-storage/internal/config"
-	"file-storage/internal/server"
 	"file-storage/internal/logger"
+	"file-storage/internal/server"
 	"go.uber.org/fx"
 )
 

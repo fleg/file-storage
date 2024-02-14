@@ -8,8 +8,8 @@ import (
 
 type (
 	ErrorResponse struct {
-		Title string `json:"title" example:"Error"`
-		Status int `json:"status" example:"500"`
+		Title  string `json:"title" example:"Error"`
+		Status int    `json:"status" example:"500"`
 		Detail string `json:"detail" example:"Something went wrong"`
 	}
 )
@@ -21,7 +21,7 @@ func NewHTTPErrorHandler() echo.HTTPErrorHandler {
 		}
 
 		res := ErrorResponse{
-			Title: "ServerError",
+			Title:  "ServerError",
 			Status: http.StatusInternalServerError,
 			Detail: err.Error(),
 		}
