@@ -16,3 +16,5 @@ Run `make dev`
   - [ ] graceful shutdown
   - [ ] main logic + api routes
   - [ ] health/ready routes
+  - [ ] tests
+  - [ ] github actions?
