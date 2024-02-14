@@ -1,6 +1,6 @@
-# go-files
+# file-storage
 
-Demo filestorage service. WIP
+Demo file storage service. WIP
 
 ## Development
 Run `make dev`

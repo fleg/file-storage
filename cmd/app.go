@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-files/internal/container"
+	"file-storage/internal/container"
 )
 
 func main() {

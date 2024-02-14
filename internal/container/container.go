@@ -4,7 +4,7 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
 
-	"go-files/internal/logger"
+	"file-storage/internal/logger"
 )
 
 func registerLogger(l *logger.Logger) fxevent.Logger {

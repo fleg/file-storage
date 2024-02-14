@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"go-files/internal/config"
-	"go-files/internal/server"
-	"go-files/internal/logger"
+	"file-storage/internal/config"
+	"file-storage/internal/server"
+	"file-storage/internal/logger"
 	"go.uber.org/fx"
 )
 

@@ -3,7 +3,7 @@ package container
 import (
 	"fmt"
 
-	"go-files/internal/config"
+	"file-storage/internal/config"
 	"go.uber.org/fx"
 )
 

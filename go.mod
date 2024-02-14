@@ -1,4 +1,4 @@
-module go-files
+module file-storage
 
 go 1.22.0
 

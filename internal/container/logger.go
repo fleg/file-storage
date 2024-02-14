@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"go-files/internal/config"
-	"go-files/internal/logger"
+	"file-storage/internal/config"
+	"file-storage/internal/logger"
 	"go.uber.org/fx"
 )
 

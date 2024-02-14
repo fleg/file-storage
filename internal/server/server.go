@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/brpaz/echozap"
 
-	"go-files/internal/logger"
+	"file-storage/internal/logger"
 )
 
 type (
