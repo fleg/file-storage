@@ -1,0 +1,4 @@
+/bin
+app.debug
+*.test
+.env
