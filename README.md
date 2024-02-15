@@ -12,7 +12,7 @@ Run `make dev`
   - [x] docker-compose
   - [ ] request validator
   - [x] connection to pg
-  - [ ] migrations in pg
+  - [x] migrations in pg
   - [ ] graceful shutdown
   - [ ] main logic + api routes
   - [x] health/ready routes
