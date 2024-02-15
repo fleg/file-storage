@@ -13,7 +13,7 @@ func Bind(srv *server.Server, c *config.Config, hs *services.HealthService) {
 }
 
 func bindHealth(e *echo.Echo, hs *services.HealthService) {
-	hh := &HealthController{healthService: hs}
+	hh := NewHealthController(hs)
 
 	e.GET("/health", hh.Health)
 	e.GET("/ready", hh.Ready)

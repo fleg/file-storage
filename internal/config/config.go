@@ -15,6 +15,9 @@ type Config struct {
 	Logger struct {
 		Level string `env:"LOG_LEVEL" envDefault:"debug" validate:"oneof=debug error info"`
 	}
+	PostgreSQL struct {
+		Url string `env:"POSTGRESQL_URL"`
+	}
 	Storage struct {
 		Path        string `env:"STORAGE_PATH" envDefault:"/tmp"`
 		MaxFileSize uint   `env:"STORAGE_MAX_FILE_SIZE" envDefault:"134217728"`

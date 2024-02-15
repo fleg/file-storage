@@ -28,6 +28,6 @@ func RegisterServerHooks(lc fx.Lifecycle, c *config.Config, l *logger.Logger, s 
 }
 
 var ServerModule = fx.Options(
-	fx.Provide(server.New),
+	fx.Provide(server.NewServer),
 	fx.Invoke(RegisterServerHooks),
 )

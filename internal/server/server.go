@@ -21,7 +21,7 @@ type (
 	}
 )
 
-func New(l *logger.Logger) *Server {
+func NewServer(l *logger.Logger) *Server {
 	e := echo.New()
 
 	e.HideBanner = true

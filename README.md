@@ -9,12 +9,13 @@ Run `make dev`
   - [ ] custom errors human readable errors
   - [ ] swagger docs
   - [ ] docker
-  - [ ] docker-compose
+  - [x] docker-compose
   - [ ] request validator
-  - [ ] connection to pg
+  - [x] connection to pg
   - [ ] migrations in pg
   - [ ] graceful shutdown
   - [ ] main logic + api routes
-  - [ ] health/ready routes
+  - [x] health/ready routes
   - [ ] tests
   - [ ] github actions?
+  - [ ] restructure folders?

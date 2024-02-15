@@ -17,10 +17,11 @@ func registerLogger(l *logger.Logger) fxevent.Logger {
 
 func Run() {
 	appModule := fx.Options(
+		fx.WithLogger(registerLogger),
+
 		ConfigModule,
 		LoggerModule,
-
-		fx.WithLogger(registerLogger),
+		PostgreSQLModule,
 		ServerModule,
 
 		fx.Provide(fx.Annotate(services.NewHealthService, fx.ParamTags(`group:"readiness"`))),
