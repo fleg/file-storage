@@ -8,13 +8,20 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Bind(srv *server.Server, c *config.Config, hs *services.HealthService) {
+func Bind(srv *server.Server, c *config.Config, hs *services.HealthService, fs *services.FilesService) {
 	bindHealth(srv.Echo, hs)
+	bindFiles(srv.Echo, fs)
 }
 
 func bindHealth(e *echo.Echo, hs *services.HealthService) {
-	hh := NewHealthController(hs)
+	hc := NewHealthController(hs)
 
-	e.GET("/health", hh.Health)
-	e.GET("/ready", hh.Ready)
+	e.GET("/health", hc.Health)
+	e.GET("/ready", hc.Ready)
+}
+
+func bindFiles(e *echo.Echo, fs *services.FilesService) {
+	fc := NewFilesController(fs)
+
+	e.POST("/upload", fc.Upload)
 }

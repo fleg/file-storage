@@ -19,3 +19,7 @@ Run `make dev`
   - [ ] tests
   - [ ] github actions?
   - [ ] restructure folders?
+  - [ ] add linter
+  - [ ] add query builder?
+  - [ ] add STORAGE_PATH checks
+  - [ ] use database/sql?

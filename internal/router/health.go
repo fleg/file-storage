@@ -19,8 +19,8 @@ type (
 	}
 )
 
-func (hh *HealthController) Health(c echo.Context) error {
-	health := hh.healthService.GetHealth(c.Request().Context())
+func (hc *HealthController) Health(c echo.Context) error {
+	health := hc.healthService.GetHealth(c.Request().Context())
 
 	return c.JSON(http.StatusOK, CheckResponse{
 		Status: health.Status,
@@ -28,8 +28,8 @@ func (hh *HealthController) Health(c echo.Context) error {
 	})
 }
 
-func (hh *HealthController) Ready(c echo.Context) error {
-	ready, err := hh.healthService.GetReadiness(c.Request().Context())
+func (hc *HealthController) Ready(c echo.Context) error {
+	ready, err := hc.healthService.GetReadiness(c.Request().Context())
 
 	if err != nil {
 		return err

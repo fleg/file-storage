@@ -5,6 +5,7 @@ import (
 	"go.uber.org/fx/fxevent"
 
 	"file-storage/internal/logger"
+	"file-storage/internal/repositories"
 	"file-storage/internal/router"
 	"file-storage/internal/services"
 )
@@ -25,6 +26,8 @@ func Run() {
 		ServerModule,
 
 		fx.Provide(fx.Annotate(services.NewHealthService, fx.ParamTags(`group:"readiness"`))),
+		fx.Provide(services.NewFilesService),
+		fx.Provide(repositories.NewFilesRepository),
 
 		fx.Invoke(router.Bind),
 	)
