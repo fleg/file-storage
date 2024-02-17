@@ -22,6 +22,7 @@ func Run() {
 
 		ConfigModule,
 		LoggerModule,
+		AppModule,
 		PostgreSQLModule,
 		ServerModule,
 

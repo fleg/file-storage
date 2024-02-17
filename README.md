@@ -21,5 +21,5 @@ Run `make dev`
   - [ ] restructure folders?
   - [ ] add linter
   - [ ] add query builder?
-  - [ ] add STORAGE_PATH checks
+  - [x] add STORAGE_PATH checks
   - [ ] use database/sql?

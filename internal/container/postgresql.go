@@ -15,7 +15,6 @@ import (
 func RegisterPostgreSQLHooks(lc fx.Lifecycle, c *config.Config, l *logger.Logger, pg *postgresql.PostgreSQL) {
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-
 			return pg.Start(ctx, &postgresql.PostgreSQLStartOptions{
 				ConnectionUrl: c.PostgreSQL.Url,
 				BeforeConnect: func(ctx context.Context, cc *pgx.ConnConfig) error {
