@@ -2,40 +2,34 @@ package container
 
 import (
 	"context"
-	"fmt"
 
 	"file-storage/internal/config"
 	"file-storage/internal/logger"
 	"file-storage/internal/postgresql"
 	"file-storage/internal/services"
 
-	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/jackc/pgx/v5"
 	"go.uber.org/fx"
 )
 
 func RegisterPostgreSQLHooks(lc fx.Lifecycle, c *config.Config, l *logger.Logger, pg *postgresql.PostgreSQL) {
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			l.Info("trying to connect to postgresql")
 
-			pool, err := pgxpool.New(ctx, c.PostgreSQL.Url)
-			if err != nil {
-				return fmt.Errorf("postgresql connection error: %w", err)
-			}
-
-			if err := pool.Ping(ctx); err != nil {
-				return fmt.Errorf("postgresql connection error: %w", err)
-			}
-
-			pg.Pool = pool
-
-			l.Info("postgresql connection has been established")
-
-			return nil
+			return pg.Start(ctx, &postgresql.PostgreSQLStartOptions{
+				ConnectionUrl: c.PostgreSQL.Url,
+				BeforeConnect: func(ctx context.Context, cc *pgx.ConnConfig) error {
+					l.Info("trying to connect to postgresql...")
+					return nil
+				},
+				AfterConnect: func(ctx context.Context, c *pgx.Conn) error {
+					l.Info("successfully connected to postgresql")
+					return nil
+				},
+			})
 		},
 		OnStop: func(ctx context.Context) error {
-			pg.Pool.Close()
-			return nil
+			return pg.Stop(ctx)
 		},
 	})
 }

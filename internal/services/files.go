@@ -76,11 +76,11 @@ func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHe
 	}
 
 	return &File{
-		ID: id,
+		ID:         id,
 		UploadedAt: fileEntity.UploadedAt,
-		Size: fileEntity.Size,
-		Mime: fileEntity.Mime,
-		Name: fileEntity.Name,
+		Size:       fileEntity.Size,
+		Mime:       fileEntity.Mime,
+		Name:       fileEntity.Name,
 	}, nil
 }
 

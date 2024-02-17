@@ -14,11 +14,11 @@ type (
 	}
 
 	UploadResponse struct {
-		ID string `json:"id"`
-		UploadedAt int64 `json:"uploadedAt"`
-		Size uint `json:"size"`
-		Mime string `json:"mime"`
-		Name string `json:"name"`
+		ID         string `json:"id"`
+		UploadedAt int64  `json:"uploadedAt"`
+		Size       uint   `json:"size"`
+		Mime       string `json:"mime"`
+		Name       string `json:"name"`
 	}
 )
 
@@ -34,11 +34,11 @@ func (fc *FilesController) Upload(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, UploadResponse{
-		ID: file.ID,
+		ID:         file.ID,
 		UploadedAt: file.UploadedAt.UTC().UnixMilli(),
-		Size: file.Size,
-		Mime: file.Mime,
-		Name: file.Name,
+		Size:       file.Size,
+		Mime:       file.Mime,
+		Name:       file.Name,
 	})
 }
 
