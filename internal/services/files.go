@@ -84,6 +84,21 @@ func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHe
 	}, nil
 }
 
+func (fs *FilesService) FindOne(ctx context.Context, id string) (*File, error) {
+	fileEntity, err := fs.filesRepository.FindOneById(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &File{
+		ID:         id,
+		UploadedAt: fileEntity.UploadedAt,
+		Size:       fileEntity.Size,
+		Mime:       fileEntity.Mime,
+		Name:       fileEntity.Name,
+	}, nil
+}
+
 func NewFilesService(c *config.Config, fr *repositories.FilesRepository) *FilesService {
 	return &FilesService{
 		storagePath:     c.Storage.Path,

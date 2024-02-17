@@ -24,4 +24,5 @@ func bindFiles(e *echo.Echo, fs *services.FilesService) {
 	fc := NewFilesController(fs)
 
 	e.POST("/upload", fc.Upload)
+	e.GET("/files/:id", fc.GetOne)
 }
