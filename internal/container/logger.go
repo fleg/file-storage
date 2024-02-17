@@ -36,7 +36,7 @@ func RegisterLoggerHooks(lc fx.Lifecycle, logger *logger.Logger) {
 	})
 }
 
-var LoggerModule = fx.Options(
+var LoggerModule = fx.Module("logger", fx.Options(
 	fx.Provide(ProvideLogger),
 	fx.Invoke(RegisterLoggerHooks),
-)
+))

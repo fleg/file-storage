@@ -40,7 +40,6 @@ func RegisterPostgreSQLHooks(lc fx.Lifecycle, c *config.Config, l *logger.Logger
 	})
 }
 
-// TODO: switch other module to fx.Module
 var PostgreSQLModule = fx.Module("pg", fx.Options(
 	fx.Provide(postgresql.NewPostgreSQL),
 	fx.Provide(fx.Annotate(

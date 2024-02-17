@@ -17,6 +17,6 @@ func ProvideConfig() (*config.Config, error) {
 	return c, nil
 }
 
-var ConfigModule = fx.Options(
+var ConfigModule = fx.Module("config", fx.Options(
 	fx.Provide(ProvideConfig),
-)
+))
