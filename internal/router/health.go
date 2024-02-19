@@ -20,12 +20,12 @@ type (
 )
 
 // Health godoc
-// @Summary      Health route
-// @Tags         health
-// @Accept       json
-// @Produce      json
-// @Success      200  {object}  router.CheckResponse
-// @Router       /health [get]
+//	@Summary	Health route
+//	@Tags		health
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	router.CheckResponse
+//	@Router		/health [get]
 func (hc *HealthController) Health(c echo.Context) error {
 	health := hc.healthService.GetHealth(c.Request().Context())
 
@@ -36,12 +36,12 @@ func (hc *HealthController) Health(c echo.Context) error {
 }
 
 // Ready godoc
-// @Summary      Ready route
-// @Tags         health
-// @Accept       json
-// @Produce      json
-// @Success      200  {object}  router.CheckResponse
-// @Router       /ready [get]
+//	@Summary	Ready route
+//	@Tags		health
+//	@Accept		json
+//	@Produce	json
+//	@Success	200	{object}	router.CheckResponse
+//	@Router		/ready [get]
 func (hc *HealthController) Ready(c echo.Context) error {
 	ready, err := hc.healthService.GetReadiness(c.Request().Context())
 

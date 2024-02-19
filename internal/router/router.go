@@ -10,13 +10,13 @@ import (
 	"github.com/swaggo/echo-swagger"
 )
 
-// @title file-storage service
-// @version 1.0
-// @description Simple file storage service
-// @contact.name Aleksey Timchenko
-// @contact.url https://flegdev.ru
-// @contact.email aleksey.timchenqo@gmail.com
-// @BasePath /
+//	@title			file-storage service
+//	@version		1.0
+//	@description	Simple file storage service
+//	@contact.name	Aleksey Timchenko
+//	@contact.url	https://flegdev.ru
+//	@contact.email	aleksey.timchenqo@gmail.com
+//	@BasePath		/
 func Bind(srv *server.Server, c *config.Config, hs *services.HealthService, fs *services.FilesService) {
 	bindHealth(srv.Echo, hs)
 	bindFiles(srv.Echo, fs)

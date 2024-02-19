@@ -42,3 +42,7 @@ migrate-down:
 .PHONY: doc
 doc:
 	$(SWAG) init -g router.go -d ./internal/router/,./internal/server
+
+.PHONY: doc-fmt
+doc-fmt:
+	$(SWAG) fmt -g router.go -d ./internal/router/,./internal/server

@@ -52,15 +52,15 @@ func (fc *FilesController) Upload(c echo.Context) error {
 }
 
 // Files.GetOne godoc
-// @Summary      Get file information by ID
-// @Tags         files
-// @Produce      json
-// @Param        id   path      string  true  "File ID"  Format(uuid)
-// @Success      200  {object}  router.FilesGetOneResponse
-// @Failure      400  {object}  server.ErrorResponse
-// @Failure      404  {object}  server.ErrorResponse
-// @Failure      500  {object}  server.ErrorResponse
-// @Router       /files/{id} [get]
+//	@Summary	Get file information by ID
+//	@Tags		files
+//	@Produce	json
+//	@Param		id	path		string	true	"File ID"	Format(uuid)
+//	@Success	200	{object}	router.FilesGetOneResponse
+//	@Failure	400	{object}	server.ErrorResponse
+//	@Failure	404	{object}	server.ErrorResponse
+//	@Failure	500	{object}	server.ErrorResponse
+//	@Router		/files/{id} [get]
 func (fc *FilesController) GetOne(c echo.Context) error {
 	id := c.Param("id")
 	file, err := fc.filesService.FindOne(c.Request().Context(), id)
@@ -78,12 +78,12 @@ func (fc *FilesController) GetOne(c echo.Context) error {
 }
 
 // Files.Unlink godoc
-// @Summary      Remove file by ID
-// @Tags         files
-// @Produce      json
-// @Param        id   path      string  true  "File ID"  Format(uuid)
-// @Success      204
-// @Router       /files/{id} [delete]
+//	@Summary	Remove file by ID
+//	@Tags		files
+//	@Produce	json
+//	@Param		id	path	string	true	"File ID"	Format(uuid)
+//	@Success	204
+//	@Router		/files/{id} [delete]
 func (fc *FilesController) Unlink(c echo.Context) error {
 	id := c.Param("id")
 	if err := fc.filesService.Unlink(c.Request().Context(), id); err != nil {
