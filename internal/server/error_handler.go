@@ -10,7 +10,7 @@ import (
 
 type (
 	ErrorResponse struct {
-		Title  string `json:"title" example:"Error"`
+		Title  string `json:"title" example:"InternalServerError"`
 		Status int    `json:"status" example:"500"`
 		Detail string `json:"detail" example:"Something went wrong"`
 	}

@@ -15,6 +15,9 @@ type Config struct {
 	Logger struct {
 		Level string `env:"LOG_LEVEL" envDefault:"debug" validate:"oneof=debug error info"`
 	}
+	Swagger struct {
+		IsEnabled bool `env:"SWAGGER_ENABLED" envDefault:"false"`
+	}
 	PostgreSQL struct {
 		Url string `env:"POSTGRESQL_URL"`
 	}

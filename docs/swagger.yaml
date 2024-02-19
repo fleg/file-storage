@@ -1,0 +1,131 @@
+basePath: /
+definitions:
+  router.CheckResponse:
+    properties:
+      status:
+        example: OK
+        type: string
+      time:
+        example: 1708353333135
+        type: integer
+    type: object
+  router.FilesGetOneResponse:
+    properties:
+      id:
+        example: a6da224f-a0b6-4803-82a7-268fb98cd8d4
+        format: uuid
+        type: string
+      mime:
+        example: image/jpeg
+        maxLength: 255
+        type: string
+      name:
+        example: image.jpg
+        maxLength: 255
+        type: string
+      size:
+        example: 36354
+        minimum: 0
+        type: integer
+      uploadedAt:
+        example: 1708339471468
+        minimum: 0
+        type: integer
+    type: object
+  server.ErrorResponse:
+    properties:
+      detail:
+        example: Something went wrong
+        type: string
+      status:
+        example: 500
+        type: integer
+      title:
+        example: InternalServerError
+        type: string
+    type: object
+info:
+  contact:
+    email: aleksey.timchenqo@gmail.com
+    name: Aleksey Timchenko
+    url: https://flegdev.ru
+  description: Simple file storage service
+  title: file-storage service
+  version: "1.0"
+paths:
+  /files/{id}:
+    delete:
+      parameters:
+      - description: File ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Remove file by ID
+      tags:
+      - files
+    get:
+      parameters:
+      - description: File ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/router.FilesGetOneResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/server.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/server.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/server.ErrorResponse'
+      summary: Get file information by ID
+      tags:
+      - files
+  /health:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/router.CheckResponse'
+      summary: Health route
+      tags:
+      - health
+  /ready:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/router.CheckResponse'
+      summary: Ready route
+      tags:
+      - health
+swagger: "2.0"
