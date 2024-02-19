@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"file-storage/internal/postgresql"
+
+	"github.com/jackc/pgx/v5"
 )
 
 type (
@@ -53,6 +55,9 @@ func (fr *FilesRepository) FindOneById(ctx context.Context, id string) (*FileEnt
 			&f.Name,
 		)
 	if err != nil {
+		if err == pgx.ErrNoRows {
+			return nil, NotFoundError
+		}
 		return nil, err
 	}
 

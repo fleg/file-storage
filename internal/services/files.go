@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"file-storage/internal/config"
+	"file-storage/internal/errors"
 	"file-storage/internal/repositories"
 )
 
@@ -35,7 +36,10 @@ type (
 
 func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHeader) (*File, error) {
 	if fileHeader.Size > int64(fs.maxFileSize) {
-		return nil, fmt.Errorf("file is too large (%d bytes), maximum is %d", fileHeader.Size, fs.maxFileSize)
+		return nil, errors.NewBadRequestError(
+			fmt.Sprintf("file is too large (%d bytes), maximum is %d", fileHeader.Size, fs.maxFileSize),
+			nil,
+		)
 	}
 
 	mimeType := fileHeader.Header.Get("content-type")
@@ -87,6 +91,9 @@ func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHe
 func (fs *FilesService) FindOne(ctx context.Context, id string) (*File, error) {
 	fileEntity, err := fs.filesRepository.FindOneById(ctx, id)
 	if err != nil {
+		if err == repositories.NotFoundError {
+			return nil, errors.NewNotFoundError(fmt.Sprintf("file with id %s is not found", id), err)
+		}
 		return nil, err
 	}
 

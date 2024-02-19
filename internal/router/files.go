@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 
+	"file-storage/internal/errors"
 	"file-storage/internal/services"
 
 	"github.com/labstack/echo/v4"
@@ -33,7 +34,7 @@ type (
 func (fc *FilesController) Upload(c echo.Context) error {
 	fileHeader, err := c.FormFile("file")
 	if err != nil {
-		return err
+		return errors.NewUnsupportedMediaTypeError("can't parse multipart form", err)
 	}
 
 	file, err := fc.filesService.Upload(c.Request().Context(), fileHeader)

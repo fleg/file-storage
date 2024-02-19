@@ -6,7 +6,7 @@ Demo file storage service. WIP
 Run `make dev`
 
 ## TODO
-  - [ ] custom errors human readable errors
+  - [x] custom human readable errors
   - [ ] swagger docs
   - [ ] docker
   - [x] docker-compose

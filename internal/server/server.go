@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
+	"file-storage/internal/config"
 	"file-storage/internal/logger"
 )
 
@@ -21,12 +22,12 @@ type (
 	}
 )
 
-func NewServer(l *logger.Logger) *Server {
+func NewServer(l *logger.Logger, c *config.Config) *Server {
 	e := echo.New()
 
 	e.HideBanner = true
 	e.HidePort = true
-	e.HTTPErrorHandler = NewHTTPErrorHandler()
+	e.HTTPErrorHandler = NewHTTPErrorHandler(c.AppEnv == "dev")
 
 	e.Use(echozap.ZapLogger(l.Desugar()))
 	e.Use(middleware.RequestID())
