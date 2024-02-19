@@ -64,6 +64,15 @@ func (fr *FilesRepository) FindOneById(ctx context.Context, id string) (*FileEnt
 	return &f, nil
 }
 
+func (fr *FilesRepository) RemoveOne(ctx context.Context, id string) error {
+	_, err := fr.pg.Pool.Exec(ctx, "delete from files where id = $1", id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func NewFilesRepository(pg *postgresql.PostgreSQL) *FilesRepository {
 	return &FilesRepository{
 		pg: pg,

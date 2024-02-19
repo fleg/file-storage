@@ -67,6 +67,15 @@ func (fc *FilesController) GetOne(c echo.Context) error {
 	})
 }
 
+func (fc *FilesController) Unlink(c echo.Context) error {
+	id := c.Param("id")
+	if err := fc.filesService.Unlink(c.Request().Context(), id); err != nil {
+		return err
+	}
+
+	return c.NoContent(http.StatusNoContent)
+}
+
 func NewFilesController(fs *services.FilesService) *FilesController {
 	return &FilesController{filesService: fs}
 }

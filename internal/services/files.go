@@ -34,6 +34,24 @@ type (
 	}
 )
 
+func (f *File) getFileName() string {
+	return fmt.Sprintf("%s%s", f.ID, strings.ToLower(filepath.Ext(f.Name)))
+}
+
+func (fs *FilesService) getFilePath(f *File) string {
+	return filepath.Join(fs.storagePath, f.getFileName())
+}
+
+func (fs *FilesService) fileFromEntity(fe *repositories.FileEntity) *File {
+	return &File{
+		ID:         fe.ID,
+		UploadedAt: fe.UploadedAt,
+		Size:       fe.Size,
+		Mime:       fe.Mime,
+		Name:       fe.Name,
+	}
+}
+
 func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHeader) (*File, error) {
 	if fileHeader.Size > int64(fs.maxFileSize) {
 		return nil, errors.NewBadRequestError(
@@ -56,6 +74,13 @@ func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHe
 		return nil, err
 	}
 
+	f := &File{
+		ID:   id,
+		Size: uint(fileHeader.Size),
+		Mime: mimeType,
+		Name: fileHeader.Filename,
+	}
+
 	// NOTE: multipart will dump file to the disk if it doesn't fit in the ram
 	src, err := fileHeader.Open()
 	if err != nil {
@@ -63,8 +88,7 @@ func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHe
 	}
 	defer src.Close()
 
-	fileName := fmt.Sprintf("%s%s", id, strings.ToLower(filepath.Ext(fileHeader.Filename)))
-	dst, err := os.Create(filepath.Join(fs.storagePath, fileName))
+	dst, err := os.Create(fs.getFilePath(f))
 	if err != nil {
 		return nil, err
 	}
@@ -79,13 +103,7 @@ func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHe
 		return nil, err
 	}
 
-	return &File{
-		ID:         id,
-		UploadedAt: fileEntity.UploadedAt,
-		Size:       fileEntity.Size,
-		Mime:       fileEntity.Mime,
-		Name:       fileEntity.Name,
-	}, nil
+	return fs.fileFromEntity(fileEntity), nil
 }
 
 func (fs *FilesService) FindOne(ctx context.Context, id string) (*File, error) {
@@ -97,13 +115,30 @@ func (fs *FilesService) FindOne(ctx context.Context, id string) (*File, error) {
 		return nil, err
 	}
 
-	return &File{
-		ID:         id,
-		UploadedAt: fileEntity.UploadedAt,
-		Size:       fileEntity.Size,
-		Mime:       fileEntity.Mime,
-		Name:       fileEntity.Name,
-	}, nil
+	return fs.fileFromEntity(fileEntity), nil
+}
+
+func (fs *FilesService) Unlink(ctx context.Context, id string) error {
+	fileEntity, err := fs.filesRepository.FindOneById(ctx, id)
+	if err != nil {
+		if err == repositories.NotFoundError {
+			// file already deleted or doesn't exists, do nothing
+			return nil
+		}
+		return err
+	}
+
+	f := fs.fileFromEntity(fileEntity)
+
+	if err := fs.filesRepository.RemoveOne(ctx, id); err != nil {
+		return err
+	}
+
+	if err := os.Remove(fs.getFilePath(f)); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func NewFilesService(c *config.Config, fr *repositories.FilesRepository) *FilesService {

@@ -25,4 +25,5 @@ func bindFiles(e *echo.Echo, fs *services.FilesService) {
 
 	e.POST("/upload", fc.Upload)
 	e.GET("/files/:id", fc.GetOne)
+	e.DELETE("/files/:id", fc.Unlink)
 }
