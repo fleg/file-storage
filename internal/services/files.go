@@ -38,7 +38,7 @@ func (f *File) getFileName() string {
 	return fmt.Sprintf("%s%s", f.ID, strings.ToLower(filepath.Ext(f.Name)))
 }
 
-func (fs *FilesService) getFilePath(f *File) string {
+func (fs *FilesService) GetFilePath(f *File) string {
 	return filepath.Join(fs.storagePath, f.getFileName())
 }
 
@@ -88,7 +88,7 @@ func (fs *FilesService) Upload(ctx context.Context, fileHeader *multipart.FileHe
 	}
 	defer src.Close()
 
-	dst, err := os.Create(fs.getFilePath(f))
+	dst, err := os.Create(fs.GetFilePath(f))
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (fs *FilesService) Unlink(ctx context.Context, id string) error {
 		return err
 	}
 
-	if err := os.Remove(fs.getFilePath(f)); err != nil {
+	if err := os.Remove(fs.GetFilePath(f)); err != nil {
 		return err
 	}
 

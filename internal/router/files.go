@@ -51,6 +51,16 @@ func (fc *FilesController) Upload(c echo.Context) error {
 	})
 }
 
+func (fc *FilesController) Download(c echo.Context) error {
+	id := c.Param("id")
+	file, err := fc.filesService.FindOne(c.Request().Context(), id)
+	if err != nil {
+		return err
+	}
+
+	return c.Attachment(fc.filesService.GetFilePath(file), file.Name)
+}
+
 // Files.GetOne godoc
 //	@Summary	Get file information by ID
 //	@Tags		files
